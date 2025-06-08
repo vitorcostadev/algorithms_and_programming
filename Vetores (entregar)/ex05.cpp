@@ -7,6 +7,7 @@ altura média do grupo de atletas.
 
 #include <iostream>
 #include <windows.h>
+#include <iomanip>
 #define NMAX 100
 
 using namespace std;
@@ -61,13 +62,15 @@ int main(){
         }
     }
 
-    cout << "A maior altura registrada foi do atleta: "<<endl;
-    cout << "\nAtleta N° da inscrição: "<<inscricoes[altaIndice]<<endl;
-    cout << "Altura do atleta: "<<alturas[altaIndice]<<"cm"<<endl;
+    cout << "[!] - MAIOR ALTURA REGISTRADA - [!]"<<endl;
+    cout << "\n[i] : Atleta N° da inscrição: "<<inscricoes[altaIndice]<<endl;
+    cout << "[ii] : Altura do atleta: "<<alturas[altaIndice]<<"cm"<<endl;
 
-    cout << "\nA menor altura registrada foi do atleta: "<<endl;
-    cout << "\nAtleta N° da inscrição: "<<inscricoes[baixaIndice]<<endl;
-    cout << "Altura do atleta: "<<alturas[baixaIndice]<<"cm";
+    cout << "\n[!] - MENOR ALTURA REGISTRADA - [!]"<<endl;
+    cout << "\n[i] : Atleta N° da inscrição: "<<inscricoes[baixaIndice]<<endl;
+    cout << "[ii] : Altura do atleta: "<<alturas[baixaIndice]<<"cm"<<endl;
+
+    cout <<fixed<<setprecision(2)<<"\nMédia das alturas digitadas: "<<mediaDasAlturas/n<<"cm";
 
 
 
