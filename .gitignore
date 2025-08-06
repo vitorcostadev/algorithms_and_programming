@@ -1,5 +1,7 @@
 /.vscode
 **.exe
 **.obj
+**.txt
 /**obj
 /**exe
+/**.txt
