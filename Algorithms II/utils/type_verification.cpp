@@ -70,3 +70,14 @@ bool validarInteiro(string num)
     }
     return result;
 }
+int fatorialNum(int num)
+{
+    int fatorial=1;
+
+    if(num<=1) return fatorial;
+    for(unsigned i = num; i>=1; i--){
+        fatorial *= i;
+    }
+
+    return fatorial;
+}
