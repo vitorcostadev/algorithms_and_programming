@@ -9,9 +9,13 @@ int main()
     void multVetor(int, unsigned, unsigned[]);
     void ordernarVetor(unsigned inicio, unsigned fim, unsigned vet[]);
     bool verifyIfNumExistsInVet(unsigned size, int num, unsigned vet[], unsigned &);
+    void inputOnVector(int x, unsigned inc, unsigned vet[], string message="");
 
-    unsigned vet[TMAX] = {2,5,6,1,8};
+    unsigned vet[TMAX];
     unsigned indice;
+    inputOnVector(TMAX, 0, vet);
+    ordernarVetor(0, TMAX-1, vet);
+    imprimirVetor(TMAX, vet);
     bool x = verifyIfNumExistsInVet(TMAX-1, 2, vet, indice);
     if(x) cout<<"Sim, esta no indice "<<indice; else cout << "Nao";
     
@@ -29,9 +33,9 @@ void inverterVetor(unsigned inicio, unsigned fim, unsigned vet[])
 
 void imprimirVetor(int x, unsigned vet[])
 {
-    if(x<0) return;
+    if(x<=0) return;
     else{
-        cout << vet[x]<<" ";
+        cout << vet[x-1]<<" ";
         imprimirVetor(x - 1, vet);
     }
 }
@@ -67,6 +71,16 @@ bool verifyIfNumExistsInVet(unsigned size, int num, unsigned vet[], unsigned &in
             indice = size-1;
             return true;
         }else
-            verifyIfNumExistsInVet(size-1, num, vet, indice);
+            return verifyIfNumExistsInVet(size-1, num, vet, indice);
     }
+}
+void inputOnVector(int x, unsigned inc, unsigned vet[], string message="")
+{
+    if (message.empty())
+        message = "Insira o "+to_string(inc+1)+"o valor: ";
+
+    if (x<=0) return;
+    cout<<message;
+    cin>>vet[inc];
+    inputOnVector(x-1, inc+1, vet);
 }
