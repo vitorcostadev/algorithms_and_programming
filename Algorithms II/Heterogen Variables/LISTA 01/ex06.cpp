@@ -37,8 +37,9 @@ void relatorioFinal(unsigned x, Vendedor v[]);
 //main
 int main()
 {
-    Vendedor vendedores[4];
+    Vendedor vendedores[TMAX];
     relatorioFinal(TMAX, vendedores);
+    return 0;
 }
 
 void calcularComissao(Vendedor &v)
