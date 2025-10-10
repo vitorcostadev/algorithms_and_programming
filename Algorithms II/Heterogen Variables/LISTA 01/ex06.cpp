@@ -1,25 +1,13 @@
 #include <iostream>
 #include <cctype>
-#define TMAX 2
+#define TMAX 50
 using namespace std;
-
-/*
-Uma empresa possui vários vendedores. Para cada vendedor é conhecido o nome, a
-quantidade vendida, o valor da venda e o salário fixo. Os vendedores recebem
-comissão de acordo com a quantidade vendida:
-1. 10% do valor da venda se quantidade vendida < 15
-2. 22% do valor da venda se 15 <= quantidade vendida < 30
-3. 30% do valor da venda se quantidade vendida >= 30
-Construa um algoritmo que escreva o nome do vendedor, a quantidade vendida, o
-valor da venda, o salário fixo, a comissão e o total recebido. Os nomes dos
-vendedores devem ser relacionados em ordem alfabética.
-*/
 
 typedef struct 
 {
     string nome;
-    unsigned quantidade_vendida;
-    float valor_venda, salario_fixo, comissao, total_a_receber;
+    unsigned quantidade_vendida=0;
+    float valor_venda=0, salario_fixo=0, comissao=0, total_a_receber=0;
 } Vendedor;
 
 // Funções 
@@ -30,15 +18,40 @@ bool validarInteiro(string numero);
 bool validarFloat(string numero);
 void ordernarNomes(unsigned x, Vendedor v[]);
 bool vemAntes(string &a, string &b);
-void entradaDeDados(unsigned x, Vendedor v[]);
+void entradaDeDados(Vendedor &);
 void totalAReceber(Vendedor &v);
 void totalAReceberVet(unsigned x, Vendedor v[]);
 void relatorioFinal(unsigned x, Vendedor v[]);
+void lerLimNSup(unsigned, unsigned, unsigned &);
 //main
 int main()
 {
     Vendedor vendedores[TMAX];
-    relatorioFinal(TMAX, vendedores);
+    unsigned opcao=0, n = 0;
+
+    if(n < TMAX){
+        do{
+            cout << "[1] : Inserir Venda"<<endl;
+            cout<<"[2] : Verificar vendedores"<<endl;
+            cout<<"[3] : Sair"<<endl;
+            cout<<"-------------------------------------------------"<<endl;
+
+            lerLimNSup(0,3, opcao);
+            cin.ignore();
+
+            switch(opcao){
+                case 1:
+                    entradaDeDados(vendedores[n]); n++; break;
+                case 2:
+                    relatorioFinal(n, vendedores); break;
+                
+            }
+            system("pause"); system("cls");
+        }while(opcao!=3);
+
+    }else cout << "Limite de vendas atingido."<<endl;
+
+    
     return 0;
 }
 
@@ -135,19 +148,18 @@ bool vemAntes(string &a, string &b)
     return a.size() < b.size();
 }
 
-void entradaDeDados(unsigned x, Vendedor v[])
+void entradaDeDados(Vendedor &vendedor)
 {
-    Vendedor vendedor;
     string value = "";
 
     do{
-        cout << x+1<<": "<<"Digite o nome do vendedor(a): ";
+        cout << "Digite o nome do vendedor(a): ";
         getline(cin, vendedor.nome);
     }while(not validarNome(vendedor.nome));
 
     
     do{
-        cout << x+1<<": "<<"Digite a quantidade de itens vendidos: ";
+        cout << "Digite a quantidade de itens vendidos: ";
         cin>>value;
 
         if(not validarInteiro(value)) cout << "[i] : Numero invalido."<<endl;
@@ -159,7 +171,7 @@ void entradaDeDados(unsigned x, Vendedor v[])
 
     do{
         value="";
-        cout << x+1<<": "<<"Digite o valor da venda: ";
+        cout << "Digite o valor da venda: ";
         cin>>value;
 
         if(not validarFloat(value)) cout << "[i] : Numero invalido."<<endl;
@@ -171,7 +183,7 @@ void entradaDeDados(unsigned x, Vendedor v[])
 
     do{
         value="";
-        cout << x+1<<": "<<"Digite o salario fixo: ";
+        cout << "Digite o salario fixo: ";
         cin>>value;
 
         if(not validarFloat(value)) cout << "[i] : Numero invalido."<<endl;
@@ -180,8 +192,6 @@ void entradaDeDados(unsigned x, Vendedor v[])
             else vendedor.salario_fixo = atof(value.c_str());
         }
     }while(not validarFloat(value) or atof(value.c_str()) < 0);
-
-    v[x] = vendedor;
     
 }
 
@@ -195,22 +205,30 @@ void totalAReceberVet(unsigned x, Vendedor v[])
 }
 
 void relatorioFinal(unsigned x, Vendedor v[]){
-    for(unsigned i = 0; i<x; i++){
-        entradaDeDados(i, v);
-        cin.ignore();
-    }
-    ordernarNomes(x, v);
-    calcularComissaoVet(x, v);
-    totalAReceberVet(x, v);
 
-    for(unsigned i = 0; i<x; i++)
-    {
-        cout<<"[i] : Nome do vendedor(a): "<<v[i].nome<<endl;
-        cout<<"[ii] : Qty. de itens vendidos: "<<v[i].quantidade_vendida<<endl;
-        cout<<"[iii] : Valor da venda R$ "<<v[i].valor_venda<<endl;
-        cout<<"[iv] : Comissao R$ "<<v[i].comissao<<endl;
-        cout<<"[v] : Salario Fixo R$ "<<v[i].salario_fixo<<endl;
-        cout<<"[vi] : Total a receber R$ "<<v[i].total_a_receber<<endl;
-        cout<<"\n";
+    if(x > 0){
+        ordernarNomes(x, v);
+        calcularComissaoVet(x, v);
+        totalAReceberVet(x, v);
+
+        for(unsigned i = 0; i<x; i++)
+        {
+            cout<<"[i] : Nome do vendedor(a): "<<v[i].nome<<endl;
+            cout<<"[ii] : Qty. de itens vendidos: "<<v[i].quantidade_vendida<<endl;
+            cout<<"[iii] : Valor da venda R$ "<<v[i].valor_venda<<endl;
+            cout<<"[iv] : Comissao R$ "<<v[i].comissao<<endl;
+            cout<<"[v] : Salario Fixo R$ "<<v[i].salario_fixo<<endl;
+            cout<<"[vi] : Total a receber R$ "<<v[i].total_a_receber<<endl;
+            cout<<"\n";
+        }
+    }else{
+        cout<<"Nenhuma venda registrada."<<endl;
     }
+}
+
+void lerLimNSup(unsigned s, unsigned f, unsigned &opcao){
+    do{
+        cout << "Faça sua escolha (max. "<<TMAX<<"): ";
+        cin>>opcao;
+    }while(opcao < s or opcao > f);
 }
