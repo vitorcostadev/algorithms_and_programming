@@ -18,3 +18,14 @@ int main()
 
     cout << fatorial(5);
 }
+
+/*
+TESTE DE MESA
+n = 5;
+
+1
+2 * fatorial(1) = 2
+3 * fatorial(2) = 6
+4 * fatorial(3) = 24
+5 * fatorial(4) = 120
+*/
