@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-void prodEscalar(unsigned i, unsigned f, unsigned &prod, unsigned x[], unsigned y[]);
+long int prodEscalar(unsigned n, unsigned x[], unsigned y[]);
 int main()
 {
     unsigned n=0;
@@ -16,17 +16,14 @@ int main()
         cout<<"Digite um valor para X["<<i<<"]: "; cin>>x[i];
         cout<<"Digite um valor para Y["<<i<<"]: "; cin>>y[i];
     }
-    unsigned prod=0;
-    prodEscalar(0, n, prod, x,y);
-    cout << prod;
+    cout<<prodEscalar(n,x,y);
 }
 
 
-void prodEscalar(unsigned i, unsigned f, unsigned &prod, unsigned x[], unsigned y[])
+long int prodEscalar(unsigned n, unsigned x[], unsigned y[])
 {
-    if(i==f) return;
+    if(n==1) return x[n-1] * y[n-1];
     else{
-        prod += x[i] * y[i];
-        return prodEscalar(i+1, f, prod, x, y);
+        return x[n-1] * y[n-1] + prodEscalar(n-1, x,y);
     }
 }
