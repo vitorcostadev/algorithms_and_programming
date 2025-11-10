@@ -6,6 +6,8 @@ determinada pessoa está representada na lista.
 */
 
 #include <iostream>
+#include <cctype>
+
 using namespace std;
 
 typedef struct Nodo{
@@ -52,9 +54,9 @@ int main(){
                 string nome;
                 cout<<"Nome da pessoa a verificar: "; cin>>nome;
                 if(findPeopleInList(pessoas, nome)){
-                    cout<<"Pessoa encontrada na lista!"<<endl;
+                    cout<<nome<<" encontrado na lista!"<<endl;
                 } else {
-                    cout<<"Pessoa nao encontrada na lista!"<<endl;
+                    cout<<nome<<" nao encontrada na lista!"<<endl;
                 }
                 break;
             }
@@ -105,6 +107,13 @@ void calcularPesoInf50(Pessoa* p)
 
 bool findPeopleInList(Pessoa* p, string nome){
     if(nome.size() == 0) return false;
+
+    for(unsigned i = 0; i<nome.size(); i++){
+        nome[i] = tolower(nome[i]);
+    }
+    for(unsigned i = 0; i<p->nome.size(); i++){
+        p->nome[i] = tolower(p->nome[i]);
+    }
 
     while(p!=NULL and p->nome != nome){
         p=p->next;
