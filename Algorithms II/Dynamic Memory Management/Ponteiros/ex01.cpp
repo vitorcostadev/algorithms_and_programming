@@ -21,6 +21,7 @@ void deletarLista(Pessoa* &p);
 float calcularPesoMedio(Pessoa* p);
 void calcularPesoInf50(Pessoa* p);
 bool findPeopleInList(Pessoa* p, string nome);
+string toLowerCase(string);
 
 int main(){
     Pessoa* pessoas = NULL;
@@ -105,17 +106,17 @@ void calcularPesoInf50(Pessoa* p)
     }
 }
 
+string toLowerCase(string str){
+    for(unsigned i = 0; i<str.size(); i++){
+        str[i] = tolower(str[i]);
+    }
+    return str;
+}
+
 bool findPeopleInList(Pessoa* p, string nome){
     if(nome.size() == 0) return false;
 
-    for(unsigned i = 0; i<nome.size(); i++){
-        nome[i] = tolower(nome[i]);
-    }
-    for(unsigned i = 0; i<p->nome.size(); i++){
-        p->nome[i] = tolower(p->nome[i]);
-    }
-
-    while(p!=NULL and p->nome != nome){
+    while(p!=NULL and toLowerCase(p->nome) != toLowerCase(nome)){
         p=p->next;
     }
     if(p != NULL){
